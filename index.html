@@ -9,33 +9,58 @@
 </head>
 
 <body>
+    <header>
+        <h1>Tic tac toe</h1>
+    </header>
+
 
     <div id="wrapper">
 
-        <div>
-            <h1>Tic tac toe</h1>
-            <h2 id="turn"></h2>
+        <div id="players">
+            <div>
+                <label for="p1">Player 1's name:</label><br>
+                <input id='p1-input' type="text" name="p1">
+            </div>
+            <br>
+            <div>
+                <label for="p2">Player 2's name:</label><br>
+                <input id='p2-input' type="text" name="p2">
+            </div>
+            <h2 id="turn">Player One's turn with the marker X</h2>
         </div>
-        <div>
-            <table>
-                <tr id="0">
-                    <th id="0-0" class="board-item" onclick="showClick(0, 0)"> </th>
-                    <th id="0-1" class="board-item" onclick="showClick(0, 1)"> </th>
-                    <th id="0-2" class="board-item" onclick="showClick(0, 2)"> </th>
-                </tr>
-                <tr id="1">
-                    <th id="1-0" class="board-item" onclick="showClick(1, 0)"> </th>
-                    <th id="1-1" class="board-item" onclick="showClick(1, 1)"> </th>
-                    <th id="1-2" class="board-item" onclick="showClick(1, 2)"> </th>
-                </tr>
-                <tr id="2">
-                    <th id="2-0" class="board-item" onclick="showClick(2, 0)"> </th>
-                    <th id="2-1" class="board-item" onclick="showClick(2, 1)"> </th>
-                    <th id="2-2" class="board-item" onclick="showClick(2, 2)"> </th>
-                </tr>
-            </table>
+
+        <div id="gameboard">
+            <div class="row">
+                <button id='b1' class="game-button"></button>
+                <button id='b2' class="game-button"></button>
+                <button id='b3' class="game-button"></button>
+            </div>
+            <div class="row">
+                <button id='b4' class="game-button"></button>
+                <button id='b5' class="game-button"></button>
+                <button id='b6' class="game-button"></button>
+            </div>
+            <div class="row">
+                <button id='b7' class="game-button"></button>
+                <button id='b8' class="game-button"></button>
+                <button id='b9' class="game-button"></button>
+            </div>
         </div>
-        <h2 id="winner">Who won?</h2>
+
+        <div id="score">
+            <h2>Score</h2>
+            <p> <span id="p1-name">Player One:</span> <span id="p1-score">0</span> </p>
+            <p> <span id="p2-name">Player Two:</span> <span id="p2-score">0</span> </p>
+            <h2 id="winner"></h2>
+
+        </div>
+
+        <div id="footer">
+            Built and designed by
+            <a href="https://github.com/rnisiide"> Ricardo Nisiide</a> |
+            <a href="https://github.com/rnisiide/tic-tac-toe">Github Source</a>
+        </div>
+
     </div>
 
 
