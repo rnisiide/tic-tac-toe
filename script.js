@@ -7,7 +7,7 @@ function Player(name, marker, color, score) {
     const GetPlayerName = () => playerName;
     const GetPlayerMarker = () => marker;
     const GetColor = () => color;
-    const SetScore = () => score++;
+    const SetScore = () => score += 1;
     const GetScore = () => score;
     return {
         SetPlayerName, GetPlayerName, GetPlayerMarker, GetColor, GetScore, SetScore
@@ -15,20 +15,13 @@ function Player(name, marker, color, score) {
 
 };
 
+
 const PlayGame = (function () {
-
-    const board = [
-        '-', '-', '-',
-        '-', '-', '-',
-        '-', '-', '-'
-    ]
-
 
     const playerOne = new Player('Player One', 'X', 'blue');
     const playerTwo = new Player('Player Two', 'O', 'red');
     let currentPlayer = playerOne;
     let matchOngoing = true;
-
     const p1Score = document.getElementById('p1-score');
     const p2Score = document.getElementById('p2-score');
     const winner = document.getElementById('winner');
@@ -37,8 +30,10 @@ const PlayGame = (function () {
     const p2name = document.getElementById('p2-name');
     const p1input = document.getElementById('p1-input');
     const p2input = document.getElementById('p2-input');
-    p1input.addEventListener('change', function () { changeName(p1input.value, playerOne) })
-    p2input.addEventListener('change', function () { changeName(p2input.value, playerTwo) })
+    const p1button = document.getElementById('p1-button');
+    const p2button = document.getElementById('p2-button');
+    p1button.addEventListener('click', function () { changeName(p1input.value, playerOne) })
+    p2button.addEventListener('click', function () { changeName(p2input.value, playerTwo) })
 
     function changeName(newName, newPlayer) {
         newPlayer.SetPlayerName(newName);
@@ -50,7 +45,6 @@ const PlayGame = (function () {
 
     }
 
-
     function changePlayer() {
         if (matchOngoing == true) {
             if (currentPlayer == playerOne) { currentPlayer = playerTwo } else { currentPlayer = playerOne }
@@ -58,21 +52,18 @@ const PlayGame = (function () {
         }
     }
 
-    const buttons = document.querySelectorAll('.game-button')
-    for (let i = 0; i < buttons.length; i++) {
-        buttons[i].addEventListener("click", function () { placeMarker(i) });
-    }
+
 
     const placeMarker = (cell) => {
         console.log('you clicked on cell ' + cell);
+        console.log(currentPlayer.GetPlayerName() + "'s turn, with the marker " + currentPlayer.GetPlayerMarker())
         buttons[cell].innerText = currentPlayer.GetPlayerMarker();
         buttons[cell].style.cssText = "background-color: " + currentPlayer.GetColor() + "; pointer-events:none";
         board[cell] = currentPlayer.GetPlayerMarker();
+        console.log(board)
         checkWinner();
         changePlayer();
     }
-
-
 
 
     function checkWinner() {
@@ -87,22 +78,27 @@ const PlayGame = (function () {
             [2, 4, 6]
         ]
 
-        if (!board.includes('-')) {
+        for (let i = 0; i < winningConditions.length; i++)
+            if (board[winningConditions[i][0]] == currentPlayer.GetPlayerMarker() &&
+                board[winningConditions[i][1]] == currentPlayer.GetPlayerMarker() &&
+                board[winningConditions[i][2]] == currentPlayer.GetPlayerMarker()) {
+                winner.innerText = currentPlayer.GetPlayerName() + ' wins!';
+                currentPlayer.SetScore();
+                endGame();
+
+                break;
+            }
+
+        if (!board.includes('-') && matchOngoing == true) {
             winner.innerText = "It's a draw!";
             endGame();
-        } else {
-            for (let i = 0; i < winningConditions.length; i++)
-                if (board[winningConditions[i][0]] == currentPlayer.GetPlayerMarker() &&
-                    board[winningConditions[i][1]] == currentPlayer.GetPlayerMarker() &&
-                    board[winningConditions[i][2]] == currentPlayer.GetPlayerMarker()) {
-                    winner.innerText = currentPlayer.GetPlayerName() + ' wins!';
-                    currentPlayer.SetScore();
-                    endGame();
-                }
+
         }
+
     }
 
     function endGame() {
+
         matchOngoing = false;
         turn.innerText = 'The game has ended. Would you like to restart?';
         p1Score.innerText = playerOne.GetScore();
@@ -115,6 +111,40 @@ const PlayGame = (function () {
             }
 
     }
+
+
+    const buttons = document.querySelectorAll('.game-button')
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener("click", function () { placeMarker(i) });
+    }
+
+
+    const board = [
+        '-', '-', '-',
+        '-', '-', '-',
+        '-', '-', '-'
+    ]
+
+    const reset = document.getElementById('resetBoard');
+    reset.addEventListener('click', function () { resetBoard() });
+
+
+    function resetBoard() {
+        console.log(currentPlayer.GetPlayerName())
+        turn.innerText = currentPlayer.GetPlayerName() + "'s turn, with the marker " + currentPlayer.GetPlayerMarker();
+        for (let i = 0; i < board.length; i++) {
+            board[i] = '-';
+        }
+
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].innerText = '';
+            buttons[i].style.cssText = "";
+        }
+        console.log(board)
+        matchOngoing = true;
+
+    }
+    createButtons();
 
 })
 PlayGame();
