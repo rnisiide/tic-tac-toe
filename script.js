@@ -32,6 +32,9 @@ const PlayGame = (function () {
     const p2input = document.getElementById('p2-input');
     const p1button = document.getElementById('p1-button');
     const p2button = document.getElementById('p2-button');
+
+    p1input.addEventListener('change', function () { changeName(p1input.value, playerOne) })
+    p2input.addEventListener('change', function () { changeName(p2input.value, playerTwo) })
     p1button.addEventListener('click', function () { changeName(p1input.value, playerOne) })
     p2button.addEventListener('click', function () { changeName(p2input.value, playerTwo) })
 
@@ -144,7 +147,6 @@ const PlayGame = (function () {
         matchOngoing = true;
 
     }
-    createButtons();
 
 })
 PlayGame();
