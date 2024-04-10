@@ -1,58 +1,159 @@
-h1 {
-    color: blue;
-    text-align: center;
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+
 }
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    background-color: #f7f7f7;
+}
+
+header {
+    height: 70px;
+    background-color: #366abf;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
 
 h2 {
     text-align: center;
 }
 
-
-th {
-    border-style: solid;
-    width: 100px;
-    height: 100px;
-}
-
-th:hover {
-    background-color: grey;
-
-}
-
 #wrapper {
-    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#player1,
+#player2 {
+    padding: 30px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#players,
+#match {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+#score {
     display: flex;
     flex-direction: row;
+}
+
+.score-box {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
+
 }
 
-#players {
-    width: 200px;
-}
 
-#footer {
+
+#p1-score,
+#p2-score {
+    margin: 5px;
+    padding-top: 4px;
     text-align: center;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    font-family: "Roboto", sans-serif;
+    font-size: 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-style: solid;
+}
+
+#p1-score {
+    background-color: #348ceb;
+}
+
+#p2-score {
+    background-color: #eb3a34;
+}
+
+footer {
+    padding: 5px;
+    text-align: center;
+    margin-top: auto;
     background-color: #363636;
     color: #ebebeb;
 }
 
-
 .game-button {
+    background-color: #c2c2c2;
     border-radius: 0;
     margin: 0;
     padding: 0;
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.game-button:hover {
+    background-color: grey;
+
+}
+
+#p1-button,
+#resetBoard {
+    height: 30px;
+    background-color: #4287f5;
+    padding: 5px;
+    border-style: none;
+    border-radius: 5px;
+}
+
+#resetBoard {
+    margin: 10px;
+    display: none;
 }
 
 .row {
     display: flex;
+    justify-content: center;
     margin: 0;
     padding: 0;
+}
+
+input {
+    padding: 5px;
+    margin: 10px 0px;
+    height: 25px;
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+
+a {
+    color: #ebebeb;
+    text-decoration: underline;
+}
+
+a:hover {
+    font-weight: bold;
+}
+
+
+@media (max-width: 1000px) {
+    input {
+        width: 90%;
+    }
 }

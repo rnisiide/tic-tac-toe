@@ -18,13 +18,13 @@ function Player(name, marker, color, score) {
 
 const PlayGame = (function () {
 
-    const playerOne = new Player('Player One', 'X', 'blue');
-    const playerTwo = new Player('Player Two', 'O', 'red');
+    const playerOne = new Player('Player One', 'X', '#348ceb');
+    const playerTwo = new Player('Player Two', 'O', '#eb3a34');
     let currentPlayer = playerOne;
     let matchOngoing = true;
     const p1Score = document.getElementById('p1-score');
     const p2Score = document.getElementById('p2-score');
-    const winner = document.getElementById('winner');
+    //const winner = document.getElementById('winner');
     const turn = document.getElementById('turn');
     const p1name = document.getElementById('p1-name');
     const p2name = document.getElementById('p2-name');
@@ -33,20 +33,25 @@ const PlayGame = (function () {
     const p1button = document.getElementById('p1-button');
     const p2button = document.getElementById('p2-button');
 
-    p1input.addEventListener('change', function () { changeName(p1input.value, playerOne) })
-    p2input.addEventListener('change', function () { changeName(p2input.value, playerTwo) })
-    p1button.addEventListener('click', function () { changeName(p1input.value, playerOne) })
-    p2button.addEventListener('click', function () { changeName(p2input.value, playerTwo) })
+    // p1input.addEventListener('change', function () { changeName(p1input.value, playerOne) })
+    // p2input.addEventListener('change', function () { changeName(p2input.value, playerTwo) })
+    p1button.addEventListener('click', function () { changeName(p1input.value, p2input.value) })
 
-    function changeName(newName, newPlayer) {
-        newPlayer.SetPlayerName(newName);
-        p1name.innerText = playerOne.GetPlayerName() + ': ';
-        p2name.innerText = playerTwo.GetPlayerName() + ': ';
-        turn.innerText = currentPlayer.GetPlayerName() + "'s turn, with the marker " + currentPlayer.GetPlayerMarker();
+    const reset = document.getElementById('resetBoard');
+    reset.addEventListener('click', function () { resetBoard() });
+
+
+    function changeName(newPlayerOne, newPlayerTwo) {
+        if (newPlayerOne != '') { playerOne.SetPlayerName(newPlayerOne) };
+        if (newPlayerTwo != '') { playerTwo.SetPlayerName(newPlayerTwo) };
+        p1name.innerText = `${playerOne.GetPlayerName()}'s score`;
+        p2name.innerText = `${playerTwo.GetPlayerName()}'s score`;
+        turn.innerText = `${currentPlayer.GetPlayerName()}'s turn, with the marker ${currentPlayer.GetPlayerMarker()}`;
         p1input.value = '';
         p2input.value = '';
 
     }
+
 
     function changePlayer() {
         if (matchOngoing == true) {
@@ -85,7 +90,8 @@ const PlayGame = (function () {
             if (board[winningConditions[i][0]] == currentPlayer.GetPlayerMarker() &&
                 board[winningConditions[i][1]] == currentPlayer.GetPlayerMarker() &&
                 board[winningConditions[i][2]] == currentPlayer.GetPlayerMarker()) {
-                winner.innerText = currentPlayer.GetPlayerName() + ' wins!';
+                //change here
+                turn.innerText = currentPlayer.GetPlayerName() + ' wins!';
                 currentPlayer.SetScore();
                 endGame();
 
@@ -93,7 +99,10 @@ const PlayGame = (function () {
             }
 
         if (!board.includes('-') && matchOngoing == true) {
-            winner.innerText = "It's a draw!";
+
+
+            turn.innerText = "It's a draw!. Would you like to restart?";
+
             endGame();
 
         }
@@ -101,9 +110,8 @@ const PlayGame = (function () {
     }
 
     function endGame() {
-
+        reset.style.display = 'inline';
         matchOngoing = false;
-        turn.innerText = 'The game has ended. Would you like to restart?';
         p1Score.innerText = playerOne.GetScore();
         p2Score.innerText = playerTwo.GetScore();
         for (let i = 0; i < buttons.length; i++)
@@ -128,12 +136,13 @@ const PlayGame = (function () {
         '-', '-', '-'
     ]
 
-    const reset = document.getElementById('resetBoard');
-    reset.addEventListener('click', function () { resetBoard() });
+
 
 
     function resetBoard() {
-        console.log(currentPlayer.GetPlayerName())
+
+        reset.style.display = 'none';
+        currentPlayer = playerOne;
         turn.innerText = currentPlayer.GetPlayerName() + "'s turn, with the marker " + currentPlayer.GetPlayerMarker();
         for (let i = 0; i < board.length; i++) {
             board[i] = '-';
@@ -143,29 +152,9 @@ const PlayGame = (function () {
             buttons[i].innerText = '';
             buttons[i].style.cssText = "";
         }
-        console.log(board)
         matchOngoing = true;
 
     }
 
 })
 PlayGame();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
