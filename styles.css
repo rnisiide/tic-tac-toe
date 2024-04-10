@@ -20,6 +20,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
 
@@ -66,7 +67,6 @@ h2 {
     align-items: center;
 
 }
-
 
 
 #p1-score,
@@ -121,6 +121,7 @@ footer {
     border-radius: 5px;
 }
 
+
 #resetBoard {
     margin: 10px;
     display: none;
@@ -149,6 +150,16 @@ a {
 
 a:hover {
     font-weight: bold;
+}
+
+
+button {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.1);
 }
 
 
